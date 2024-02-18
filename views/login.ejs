@@ -1,19 +1,165 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="device-width, initial-scale=1.0" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Nunito:ital,wght@0,200..1000;1,200..1000&display=swap"
+      rel="stylesheet"
+    />
     <title>Document</title>
-</head>
-<body>
-    <a href="/auth/google"><button>Sign With Google</button></a>
-    <div class="flag" style="display: none;"><%= flag %></div>
+    <style>
+      body {
+        margin: 0;
+        padding: 0;
+        font-family: "Nunito", sans-serif;
+        font-optical-sizing: auto;
+        font-weight: 300;
+        font-style: normal;
+      }
+      .sections {
+        height: 100vh;
+        width: 100vw;
+        display: flex;
+      }
+      .infoSection {
+        height: 100vh;
+        width: 50vw;
+        background-color: #151922;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+      }
+      .loginSection {
+        height: 100vh;
+        width: 50vw;
+        background-color: #00a16f;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+      }
+      .infoSection .text {
+        width: 75%;
+        font-size: 1.2rem;
+      }
+      .infoSection .text h1 {
+        font-family: "Nunito", sans-serif;
+        font-optical-sizing: auto;
+        font-weight: 300;
+        font-style: normal;
+        color: white;
+        font-size: 5rem;
+        margin: 0;
+      }
+      .infoSection .text h4 {
+        margin: 0;
+        color: white;
+        font-weight: 300;
+      }
+      .infoSection .text p {
+        color: rgb(182, 180, 180);
+      }
+      .login_btn {
+        display: flex;
+        gap: 10px;
+        text-decoration: none;
+        align-items: center;
+        font-style: normal;
+        background-color: #f4f4f4;
+        padding: 0 10px;
+        border-radius: 5rem;
+        transition: all 0.3s;
+        justify-content: center;
+        margin-top: 3rem;
+        width: 50%;
+      }
+      .login_btn h3 {
+        color: black;
+        font-family: "Poppins", sans-serif;
+        font-weight: 550;
+        font-family: "Nunito", sans-serif;
+        font-optical-sizing: auto;
+        font-weight: 650;
+        font-style: normal;
+      }
+      .login_btn > img {
+        height: 2rem;
+        width: 2rem;
+      }
+      .login_btn:active {
+        transform: scale(0.95, 0.95);
+        opacity: 0.8;
+      }
+      .login_btn:hover {
+        opacity: 0.9;
+        box-shadow: 0 0 10px black;
+      }
+      .reveal {
+        display: none;
+      }
+      @media (max-width: 881px) {
+        .hide {
+          display: none;
+        }
+        .reveal {
+          display: block;
+        }
+        .infoSection .text h1 {
+          font-size: 3rem;
+        }
+      }
+      @media (max-width: 511px) {
+        .infoSection .text {
+          font-size: 0.8rem;
+        }
+        .infoSection .text h1 {
+          font-size: 1.5rem;
+        }
+      }
+      @media (max-width: 450px) {
+        .reveal {
+          display: none;
+        }
+        .login_btn {
+          width: fit-content;
+          height: fit-content;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="wrapper">
+      <div class="sections">
+        <div class="infoSection">
+          <div class="text">
+            <h1>Welcome</h1>
+            <h4>GDGU Portal</h4>
+            <p>
+              A centralized software solution enabling comprehensive management
+              of student data campus-wide.
+            </p>
+          </div>
+        </div>
+        <div class="loginSection">
+          <a href="/auth/google" class="login_btn">
+            <img
+              src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADAAAAAwCAYAAABXAvmHAAAACXBIWXMAAAsTAAALEwEAmpwYAAAEkUlEQVR4nO2Zb0wbZRzHn3taesUtRpOJYbo/DoQM5c/GMgryzxkYxbGBiQsbNBCEFGaIY8zCCuaUMSiQAQMGQWAgcSY2GeuNuzpc8NqNvRoCItE3841Dthj3ToNzbX+mVRBI197Zo2VJv8n3XZ+nn89dn6dPrwj5448/HgcoJIWqgGIoxywU4HuQTfwJSsIKBxBAKgJIQzbIJhZBhX+BE/g6VAUU2ccgXwc0UgWU4tvwNmGBJASCqiQsoMa3QRsQ433wOlk4qPEsvCkQ2llTEUAxnoEaFOIdeA3RCumEzWPwtT2IrHCK0K0f+HkUCMX4B9HBk9b0PTwNFJKJC9+NngcVfrDu8En/toJoFw9+EMnhOPGr1+DLCE40eIeAGn/vPXgsMvyHRIfgrbEMT0IlroUmaQpQaAtQKAjOSN6C05hy7Db21zgbW4pN4sI3kyGQQVh5g5+W9PJZfEChZ+ADydAqkVKR4R1vVIHv8IIvwPNwDr0oeP4aFAJ5+P76wJvl22CcfAQaCUCyC/gSPAV6JEEbLWAmdWAmwdHeAIB0wvmV35DweiQBs2x+WcDeURmACv8Hn0lYoAK9hDZiwCSPXwW/VI4E0En/ObuclPSjjRowybROBZY6FPAAyhGJNmrATF5xKWCSdQiZL1gzC2I0XDthO9rUd9e9gImccynAkRm+EAjWzMIbddcW+Qg8dCMQ6iuB3TW3rHwEHrkWQJt9JbCjehKeaoHtVd+C5x+hm7IwXwns1t60Pd2L+JNRHovYTI642UY7fSVwRDc8z0NAduZJ8A+5Z6Geif/jvF4RiEROy3D+puiPvrG4Eii/0DjqXoALVDiDnx0PBhWthENXs6HDGHtJbIGTnfX97u6Arq/iuHsBQBjMsntL4DYzCfRYOGQbDjvg7c2jlZaL11/bJhZ8W496Z2SNyeoK/vVas4XiKH5P88BENtrhfzdthrNMwjL4ylaPJi9wXIrHjwcpjpIeafxswd3VL2lrm+A9KXCBL98df+GvEjrdKfxSP2YTZjyRoDhKmt/SM+d2/6+egsbuylhBkzcwihlX8CvvRP/X4VuFwvfeiNhe1lX3E5/d51hz75zQ+RE9FvZKPq208pHIp5WWzq/2DlCDKXJ38w6PRW1qZ/b15RmU1pyRHDja2uH2FEp9ekrQl+dyutmY1iweAitFGljFdJdxL6VnIw5cGdsVdJkL2zJgjEq8aNxTV8ckTNpfs3JM1kgOFPZQsLXqO6cC77c3dSNPomPjpvkKeNKiwXLYWX1nFfy7TQM/Ik+j10fINHTqfW9IFH5RCJG1Jgd8ev2Xv53o6hJ0cHxiOG7HczVM4oI3JI7pc0HVemGeGq4MEgV+hYT8LBM/K2RN/J+eYxXTRmPo+v3m7jNGNecaMq2iX3lDprWXjWlG3sgwvSe0gY2beseQ5TF4ztXDjqt++caru5C3MzQWGdvM7L9VZDj4WCh4AZ3xuJGJm/icifb+n3xrowck6WeiC1uN+0a1TOLPajptUWVQWu13yH4IzDVk2tSGtMWqa8nzLex+ts8YU2Afg/zxxx/kaf4GzSVnCicBYF0AAAAASUVORK5CYII="
+            />
+            <h3 class="reveal">Sign in</h3>
+            <h3 class="hide">Sign in with Google</h3>
+          </a>
+        </div>
+      </div>
+    </div>
+    <div class="flag" style="display: none"><%= flag %></div>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
     <script>
-        console.log($(".flag").text());
-        if($(".flag").text()=="true"){
-            alert("You are not registered!");
-        }
+      console.log($(".flag").text());
+      if ($(".flag").text() == "true") {
+        alert("You are not registered!");
+      }
     </script>
-</body>
+  </body>
 </html>

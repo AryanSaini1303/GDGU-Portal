@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <a href="/auth/google"><button>Sign With Google</button></a>
+    <div class="flag" style="display: none;"><%= flag %></div>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+    <script>
+        console.log($(".flag").text());
+        if($(".flag").text()=="true"){
+            alert("You are not registered!");
+        }
+    </script>
+</body>
+</html>
